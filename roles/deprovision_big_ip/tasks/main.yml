@@ -1,0 +1,11 @@
+---
+- name: Remove load balancing
+  ansible.builtin.include_tasks: remove_load_balancing.yml
+
+- name: Remove initial configuration
+  ansible.builtin.include_tasks: remove_initial_configuration.yml
+
+- name: Save BIG-IP running configuration
+  f5networks.f5_modules.bigip_config:
+    provider: "{{ provider }}"
+    save: true

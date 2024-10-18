@@ -1,0 +1,62 @@
+---
+provider:
+  user: admin
+  password: R3dh4t123
+  server: 192.168.122.22
+  validate_certs: false
+  server_port: 443
+
+license_key: ZHETN-HMJVR-XIZCQ-YAARD-OOOKWUB
+
+hostname: bigip1.rh.lab
+
+dns_servers:
+  - 192.168.122.1
+
+ntp_servers:
+  - time.google.com
+  - time.nist.gov
+
+monitor: my_http_monitor
+
+pools:
+  - name: my_http_pool
+    lb_method: round-robin
+    monitors: /Common/my_http_monitor
+
+pool_members:
+  - member_name: web_server1
+    pool_name: my_http_pool
+    ip: 10.0.0.2
+    port: 80
+  - member_name: web_server2
+    pool_name: my_http_pool
+    ip: 10.0.0.3
+    port: 80
+
+vlans:
+  - name: vlan1
+    untagged_interfaces: 
+      - '1.1'
+    
+self_ips:
+  - name: self_ip1
+    address: 10.0.0.1
+    netmask: 255.255.255.0
+    vlan: vlan1
+
+source_address_persistence_profile: my_source_address_persistence_profile
+
+virtual_servers:
+  - name: web01
+    pool: my_http_pool
+    destination: 10.0.0.10
+    port: 80
+    vlan: vlan1
+    snat: Automap
+    profiles:
+      - http
+    # persistence_cookie_profile: my_persistence_profile
+    persistence_profile: my_source_address_persistence_profile
+
+  

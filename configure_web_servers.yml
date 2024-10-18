@@ -1,0 +1,55 @@
+---
+- name: Configure web servers
+  hosts: web_servers
+  become: true
+
+  tasks:
+    - name: Provision web server
+      tags: [provision]
+      block:
+        - name: Install nginx web server
+          ansible.builtin.dnf:
+            name: nginx
+            state: present
+
+        - name: Start and enable nginx service
+          ansible.builtin.service:
+            name: nginx
+            state: started
+            enabled: true
+
+        - name: Allow http traffic
+          ansible.posix.firewalld:
+            service: http
+            permanent: true
+            state: enabled
+            immediate: true
+
+        - name: Create index file
+          ansible.builtin.copy:
+            content: "Hello World from {{ inventory_hostname }}\n"
+            dest: /usr/share/nginx/html/index.html
+            owner: root
+            group: root
+            mode: '0644'
+
+    - name: Deprovision web server
+      tags: [never, deprovision]
+      block:
+        - name: Stop nginx service
+          ansible.builtin.service:
+            name: nginx
+            state: stopped
+
+        - name: Uninstall nginx server
+          ansible.builtin.dnf:
+            name: nginx
+            state: absent
+            autoremove: true
+
+        - name: Block http traffic
+          ansible.posix.firewalld:
+            service: http
+            permanent: true
+            state: disabled
+            immediate: true

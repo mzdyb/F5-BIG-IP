@@ -1,0 +1,80 @@
+---
+version: 3
+
+options:
+  package_manager_path: /usr/bin/microdnf
+
+images:
+  base_image:
+    name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest
+
+build_arg_defaults:
+  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "--ignore-certs" # Ansible Builder doesn't support --ignore-certs, whereas the ansible-galaxy command supports this option
+
+additional_build_files:
+  - src: files/ansible.cfg
+    dest: configs
+
+additional_build_steps:
+  prepend_galaxy:
+    - ADD _build/configs/ansible.cfg ~/.ansible.cfg
+
+    # List of servers to download collections
+    - ENV ANSIBLE_GALAXY_SERVER_LIST=certified_content,validated_content,galaxy
+
+    # Red Hat Certified Content Collections
+    - ENV ANSIBLE_GALAXY_SERVER_CERTIFIED_CONTENT_URL=https://console.redhat.com/api/automation-hub/content/published/
+    - ENV ANSIBLE_GALAXY_SERVER_CERTIFIED_CONTENT_AUTH_URL=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+      # For below ARG variable provide token with --build-arg cli parameter (ansible-builder build -t <image tag> --build-arg ANSIBLE_GALAXY_SERVER_CERTIFIED_CONTENT_TOKEN=<token>)
+    - ARG ANSIBLE_GALAXY_SERVER_CERTIFIED_CONTENT_TOKEN
+
+    # Red Hat Validated Content Collections
+    - ENV ANSIBLE_GALAXY_SERVER_VALIDATED_CONTENT_URL=https://console.redhat.com/api/automation-hub/content/validated/
+    - ENV ANSIBLE_GALAXY_SERVER_VALIDATED_CONTENT_AUTH_URL=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+      # For below ARG variable provide token with --build-arg cli parameter (ansible-builder build -t <image tag> --build-arg ANSIBLE_GALAXY_SERVER_VALIDATED_CONTENT_TOKEN=<token>)
+    - ARG ANSIBLE_GALAXY_SERVER_VALIDATED_CONTENT_TOKEN
+
+    # Ansible Galaxy fallback
+    - ENV ANSIBLE_GALAXY_SERVER_GALAXY_URL=https://galaxy.ansible.com/
+
+
+dependencies:
+  galaxy:
+    collections:
+      - name: netbox.netbox
+      - name: junipernetworks.junos
+      - name: juniper.device
+      - name: cisco.ios
+      - name: arista.eos
+      - name: cisco.aci
+      - name: network.base
+      - name: network.acls
+      - name: network.bgp
+      - name: network.ospf
+      - name: network.interfaces
+      - name: network.backup
+      - name: network.telemetry
+      - name: network.vpn
+      - name: community.general
+      - name: ansible.posix
+      - name: f5networks.f5_modules
+      - name: f5networks.f5_bigip
+      - name: f5networks.f5os
+      - name: servicenow.itsm
+
+  python:
+    - pytz
+    - pynetbox
+    - ncclient
+    - ntc-templates
+    - genie
+    - pyats
+    - jxmlease
+    - xmltodict
+    - jmespath
+    - packaging >= 24.1
+
+  system:
+    - python3 >=3.9
+  ansible_core:
+    package_pip: ansible-core>=2.14.0

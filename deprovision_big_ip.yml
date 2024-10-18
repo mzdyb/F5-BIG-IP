@@ -1,0 +1,7 @@
+---
+- name: Deprovision BIG-IP
+  hosts: big_ip
+  connection: local
+
+  roles:
+    - deprovision_big_ip

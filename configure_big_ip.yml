@@ -1,0 +1,11 @@
+---
+- name: Configure BIG-IP
+  hosts: big_ip
+  connection: local
+
+  roles:
+    - role: apply_initial_configuration
+      tags: [initial_configuration]
+
+    - role: configure_load_balancing
+      tags: [load_balancing]

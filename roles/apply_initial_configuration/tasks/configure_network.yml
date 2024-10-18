@@ -1,0 +1,16 @@
+---
+- name: Create vlans
+  f5networks.f5_modules.bigip_vlan:
+    provider: "{{ provider }}"
+    untagged_interfaces: "{{ item.untagged_interfaces }}"
+    name: "{{ item.name }}"
+  loop: "{{ vlans }}"
+
+- name: Create Self IP
+  f5networks.f5_modules.bigip_selfip:
+    provider: "{{ provider }}"
+    name: "{{ item.name }}"
+    address: "{{ item.address }}"
+    netmask: "{{ item.netmask }}"
+    vlan: "{{ item.vlan }}"
+  loop: "{{ self_ips }}"

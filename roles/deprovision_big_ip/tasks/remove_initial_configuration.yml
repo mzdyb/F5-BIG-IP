@@ -1,0 +1,30 @@
+---
+- name: Reset hostname
+  f5networks.f5_modules.bigip_hostname:
+    provider: "{{ provider }}"
+    hostname: "changeme.example.com"
+
+- name: Clear DNS configuration
+  f5networks.f5_modules.bigip_device_dns:
+    provider: "{{ provider }}"
+    name_servers: ""
+
+- name: Clear NTP configuration
+  f5networks.f5_modules.bigip_device_ntp:
+    provider: "{{ provider }}"
+    ntp_servers: ""
+
+- name: Remove Self IP
+  f5networks.f5_modules.bigip_selfip:
+    provider: "{{ provider }}"
+    name: "{{ item.name }}"
+    state: absent
+  loop: "{{ self_ips }}"
+
+- name: Remove vlans
+  f5networks.f5_modules.bigip_vlan:
+    provider: "{{ provider }}"
+    untagged_interfaces: "{{ item.untagged_interfaces }}"
+    name: "{{ item.name }}"
+    state: absent
+  loop: "{{ vlans }}"

@@ -1,0 +1,21 @@
+---
+- name: Apply license
+  f5networks.f5_modules.bigip_device_license:
+    provider: "{{ provider }}"
+    license_key: "{{ license_key }}"
+    accept_eula: true
+
+- name: Configure hostname
+  f5networks.f5_modules.bigip_hostname:
+    provider: "{{ provider }}"
+    hostname: "{{ hostname }}"
+
+- name: Configure DNS
+  f5networks.f5_modules.bigip_device_dns:
+    provider: "{{ provider }}"
+    name_servers: "{{ dns_servers }}"
+
+- name: Configure NTP
+  f5networks.f5_modules.bigip_device_ntp:
+    provider: "{{ provider }}"
+    ntp_servers: "{{ ntp_servers }}"

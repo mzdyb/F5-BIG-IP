@@ -1,0 +1,11 @@
+---
+- name: Reset BIG-IP configuration
+  hosts: big_ip
+  connection: local
+
+  tasks:
+    - name: Reset configuration
+      f5networks.f5_modules.bigip_config:
+        provider: "{{ provider }}"
+        reset: true
+        save: true
