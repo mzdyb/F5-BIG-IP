@@ -65,7 +65,7 @@ This playbook entirely erases BIG-IP configuration.
 ## Remarks  
 Notice that __ansible_python_interpreter: "{{ansible_playbook_python}}"__ variable is defined in the inventory. This is required to set the path to correct python interpreter in Execution Environment because __connection: local__ plugin is used. Without it /usr/libexec/platform-python path would be used by default which points to Python 3.6 and some of the libraries in this EE require Python 3.9. Instead using 'connection: local' plugin __delegate_to: localhost__ parameter can be used per task, in this case specyfying python interpreter is not required.  
   
-For the explanation how to use Ansible for F5 BIG-IP please check the following F5 website:  
+For further explanation how to use Ansible for F5 BIG-IP please check the following F5 website:  
 [F5 BIG-IP Ansible documentation](https://clouddocs.f5.com/products/orchestration/ansible/devel/overview.html)
 
 ## Feedback
