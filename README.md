@@ -6,7 +6,7 @@ https://my.f5.com/manage/s/article/K70671013
 https://my.f5.com/manage/s/article/K54312549
 
 The following network topology simulated in EVE-NG is used in this demo:  
-![alt text](image.png)
+![alt text](files/topo.png)
 
 
 When variable __persistence_enabled__ in configure_load_balancing role is set to ___false___ traffic from the client to web servers is load-balanced in round-robin fashion:
