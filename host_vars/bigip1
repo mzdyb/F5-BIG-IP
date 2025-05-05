@@ -2,16 +2,16 @@
 provider:
   user: admin
   password: R3dh4t123
-  server: 192.168.122.22
+  server: 192.168.130.120
   validate_certs: false
   server_port: 443
 
-license_key: ZHETN-HMJVR-XIZCQ-YAARD-OOOKWUB
+# license_key: ZHETN-HMJVR-XIZCQ-YAARD-OOOKWUB
 
 hostname: bigip1.rh.lab
 
 dns_servers:
-  - 192.168.122.1
+  - 192.168.130.120
 
 ntp_servers:
   - time.google.com
