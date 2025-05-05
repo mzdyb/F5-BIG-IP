@@ -2,14 +2,14 @@
 big_ip:
   hosts:
     bigip1:
-      ansible_host: 192.168.122.22
+      ansible_host: 192.168.130.120
       ansible_python_interpreter: "{{ansible_playbook_python}}" # required to set path to correct python interpreter in EE
 
 web_servers:
  hosts:
    web_server1:
-     ansible_host: 192.168.122.50
+     ansible_host: 192.168.130.122
    web_server2:
-     ansible_host: 192.168.122.51
+     ansible_host: 192.168.130.123
  vars:
    ansible_user: ansible-user
