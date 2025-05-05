@@ -1,6 +1,6 @@
 ---
 - name: Configure BIG-IP
-  hosts: big_ip
+  hosts: bigip1
   connection: local
 
   roles:
