@@ -6,7 +6,7 @@ https://my.f5.com/manage/s/article/K70671013
 https://my.f5.com/manage/s/article/K54312549
 
 The following network topology simulated in EVE-NG is used in this demo:  
-![alt text](files/topo.png)
+![alt text](files/F5_lab_drawing.png)
 
 
 When variable __persistence_enabled__ in configure_load_balancing role is set to ___false___ traffic from the client to web servers is load-balanced in round-robin fashion:
@@ -63,8 +63,9 @@ This playbook configures nginx service on web servers. It can eithe provision or
 2. __reset_big_ip_configuration.yml__  
 This playbook entirely erases BIG-IP configuration.
 
-## Remarks  
-Notice that __ansible_python_interpreter: "{{ansible_playbook_python}}"__ variable is defined in the inventory. This is required to set the path to correct python interpreter in Execution Environment because __connection: local__ plugin is used. Without it /usr/libexec/platform-python path would be used by default which points to Python 3.6 and some of the libraries in this EE require Python 3.9. Instead using 'connection: local' plugin __delegate_to: localhost__ parameter can be used per task, in this case specyfying python interpreter is not required.  
+## Example automation workflow
+![alt text](files/F5_workflow_template.png)
+
   
 For further explanation how to use Ansible for F5 BIG-IP please check the following F5 website:  
 [F5 BIG-IP Ansible documentation](https://clouddocs.f5.com/products/orchestration/ansible/devel/overview.html)
