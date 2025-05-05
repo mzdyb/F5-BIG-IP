@@ -13,3 +13,4 @@ web_servers:
      ansible_host: 192.168.130.123
  vars:
    ansible_user: ansible-user
+   ansible_password: redhat

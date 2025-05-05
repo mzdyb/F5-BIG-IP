@@ -38,11 +38,12 @@ To introduce modularity and reusability for Ansible code it is beneficial to use
 1. **apply_initial_configuration**  
   This role applies the basic configuration for BIG-IP system and network.  
    System:
-    - activate license  
+    - activate license (license key is interactively provided using AAP Survey with license_key variable)
     - configure fqdn, DNS, NTP
 
    Network:
     - configure VLAN and Self IP
+
 
 2. **configure_load_balancing**  
 This role configures BIG-IP to load balance traffic from client to two web servers:
@@ -57,7 +58,7 @@ Removes BIG-IP configuration added by two previous roles.
 
 Depending on our needs we don't always have to use roles. The following standalone playbooks have been created:
 1. __configure_web_servers.yml__  
-This playbook configures nginx service on web servers.
+This playbook configures nginx service on web servers. It can eithe provision or deprovision web servers.
 
 2. __reset_big_ip_configuration.yml__  
 This playbook entirely erases BIG-IP configuration.
