@@ -38,7 +38,7 @@ To introduce modularity and reusability for Ansible code it is beneficial to use
 1. **apply_initial_configuration**  
   This role applies the basic configuration for BIG-IP system and network.  
    System:
-    - activate license (license key is interactively provided using AAP Survey with license_key variable)
+    - activate license (license key is interactively provided using AAP Survey with 'license_key' variable)
     - configure fqdn, DNS, NTP
 
    Network:
@@ -50,7 +50,7 @@ This role configures BIG-IP to load balance traffic from client to two web serve
    - configure virtual server and pool with two web servers as pool members
    - configure SNAT
    - configure custom http monitor
-   - configure source address persistence profile
+   - configure source address persistence profile (persistance profile is interactively enabled/disabled using AAP Survey on Workflow Template level with 'persistence_enabled' variable)
 
 3. **deprovision_big_ip**  
 Removes BIG-IP configuration added by two previous roles.
