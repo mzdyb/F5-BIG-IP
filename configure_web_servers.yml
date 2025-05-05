@@ -11,6 +11,7 @@
           ansible.builtin.dnf:
             name: nginx
             state: present
+            use_backend: dnf4
 
         - name: Start and enable nginx service
           ansible.builtin.service:
