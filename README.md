@@ -50,7 +50,7 @@ This role configures BIG-IP to load balance traffic from client to two web serve
    - configure virtual server and pool with two web servers as pool members
    - configure SNAT
    - configure custom http monitor
-   - configure source address persistence profile (persistance profile is interactively enabled/disabled using AAP Survey on Workflow Template level with 'persistence_enabled' variable)
+   - configure source address persistence profile (persistance profile is interactively enabled/disabled using AAP Survey with 'persistence_enabled' variable)
 
 3. **deprovision_big_ip**  
 Removes BIG-IP configuration added by two previous roles.
