@@ -41,7 +41,7 @@
           ansible.builtin.service:
             name: nginx
             state: stopped
-            ignore_errors: true
+          ignore_errors: true
 
         - name: Uninstall nginx server
           ansible.builtin.dnf:
