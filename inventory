@@ -14,3 +14,4 @@ web_servers:
  vars:
    ansible_user: ansible-user
    ansible_password: redhat
+   ansible_become_password: redhat
