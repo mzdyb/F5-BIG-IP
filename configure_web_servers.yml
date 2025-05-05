@@ -47,6 +47,7 @@
             name: nginx
             state: absent
             autoremove: true
+            use_backend: dnf5
 
         - name: Block http traffic
           ansible.posix.firewalld:
