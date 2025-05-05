@@ -6,7 +6,7 @@ provider:
   validate_certs: false
   server_port: 443
 
-# license_key: ZHETN-HMJVR-XIZCQ-YAARD-OOOKWUB
+license_key: ZHETN-HMJVR-XIZCQ-YAARD-OOOKWUB
 
 hostname: bigip1.rh.lab
 
