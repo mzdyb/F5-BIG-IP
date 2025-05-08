@@ -9,7 +9,7 @@ The following network topology simulated in EVE-NG is used in this demo:
 ![alt text](files/F5_lab_drawing.png)
 
 
-When variable __persistence_enabled__ in configure_load_balancing role is set to ___false___ traffic from the client to web servers is load-balanced in round-robin fashion:
+We configuring here load-balancing of http traffic from client machine to two web servers. When variable __persistence_enabled__ in configure_load_balancing role is set to ___false___ traffic from the client to web servers is load-balanced in round-robin fashion:
 ```
 [ansible-user@client ~]$ curl 10.0.0.10
 Hello World from web_server1
