@@ -9,7 +9,7 @@ provider:
 hostname: bigip1.rh.lab
 
 dns_servers:
-  - 192.168.130.120
+  - 192.168.130.1
 
 ntp_servers:
   - time.google.com
