@@ -1,11 +1,14 @@
 ---
 - name: Configure system
   ansible.builtin.include_tasks: configure_system.yml
+  register: system_config_result
 
 - name: Configure network
   ansible.builtin.include_tasks: configure_network.yml
+  register: network_config_result
 
 - name: Save BIG-IP running configuration
   f5networks.f5_modules.bigip_config:
     provider: "{{ provider }}"
     save: true
+  when: system_config_result.changed or network_config_result.changed
