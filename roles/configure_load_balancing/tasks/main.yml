@@ -1,6 +1,8 @@
 ---
 - debug: var=persistence_enabled
 
+- debug: msg="{{ not persistence_enabled }}"
+
 # - name: Create source address persistence profile
 #   f5networks.f5_modules.bigip_profile_persistence_src_addr:
 #     provider: "{{ provider }}"
