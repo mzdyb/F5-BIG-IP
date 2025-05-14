@@ -1,4 +1,64 @@
 ---
-- name: Configure load balancing
-  ansible.builtin.include_tasks: configure_lb.yml
+- name: Create source address persistence profile
+  f5networks.f5_modules.bigip_profile_persistence_src_addr:
+    provider: "{{ provider }}"
+    name: "{{ source_address_persistence_profile }}"
+  notify: Save BIG-IP running configuration
+
+- name: Create custom http monitor
+  f5networks.f5_modules.bigip_monitor_http:
+    provider: "{{ provider }}"
+    name: "{{ monitor }}"
+    state: present
+  notify: Save BIG-IP running configuration
+
+- name: Create pools
+  f5networks.f5_modules.bigip_pool:
+    provider: "{{ provider }}"
+    name: "{{ item.name }}"
+    lb_method: "{{ item.lb_method }}"
+    monitors: "{{ item.monitors }}"
+    state: present
+  loop: "{{ pools }}"
+  notify: Save BIG-IP running configuration
+
+- name: Add pool members
+  f5networks.f5_modules.bigip_pool_member:
+    provider: "{{ provider }}"
+    pool: "{{ item.pool_name }}"
+    name: "{{ item.member_name }}"
+    address: "{{ item.ip }}"
+    port: "{{ item.port }}"
+    state: present
+  loop: "{{ pool_members }}"
+  notify: Save BIG-IP running configuration
+
+- name: Configure Virtual Servers with source address persistence
+  f5networks.f5_modules.bigip_virtual_server:
+    provider: "{{ provider }}"
+    name: "{{ item.name }}"
+    destination: "{{ item.destination }}"
+    port: "{{ item.port }}"
+    pool: "{{ item.pool }}"
+    snat: "{{ item.snat }}"
+    profiles: "{{ item.profiles }}"
+    default_persistence_profile: "{{ source_address_persistence_profile }}"
+    state: present
+  loop: "{{ virtual_servers }}"
+  when: persistence_enabled | bool
+  notify: Save BIG-IP running configuration
+
+- name: Configure Virtual Servers without source address persistence
+  f5networks.f5_modules.bigip_virtual_server:
+    provider: "{{ provider }}"
+    name: "{{ item.name }}"
+    destination: "{{ item.destination }}"
+    port: "{{ item.port }}"
+    pool: "{{ item.pool }}"
+    snat: "{{ item.snat }}"
+    profiles: "{{ item.profiles }}"
+    default_persistence_profile: ""
+    state: present
+  loop: "{{ virtual_servers }}"
+  when: not ( persistence_enabled | bool )
   notify: Save BIG-IP running configuration

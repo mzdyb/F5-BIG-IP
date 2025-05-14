@@ -5,6 +5,7 @@
     untagged_interfaces: "{{ item.untagged_interfaces }}"
     name: "{{ item.name }}"
   loop: "{{ vlans }}"
+  notify: Save BIG-IP running configuration
 
 - name: Create Self IP
   f5networks.f5_modules.bigip_selfip:
@@ -14,3 +15,4 @@
     netmask: "{{ item.netmask }}"
     vlan: "{{ item.vlan }}"
   loop: "{{ self_ips }}"
+  notify: Save BIG-IP running configuration

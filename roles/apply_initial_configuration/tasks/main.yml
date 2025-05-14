@@ -1,8 +1,6 @@
 ---
 - name: Configure system
   ansible.builtin.include_tasks: configure_system.yml
-  notify: Save BIG-IP running configuration
 
 - name: Configure network
   ansible.builtin.include_tasks: configure_network.yml
-  notify: Save BIG-IP running configuration

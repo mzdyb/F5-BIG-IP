@@ -5,18 +5,22 @@
     license_key: "{{ license_key }}"
     accept_eula: true
   when: license_key | length > 0
+  notify: Save BIG-IP running configuration
 
 - name: Configure hostname
   f5networks.f5_modules.bigip_hostname:
     provider: "{{ provider }}"
     hostname: "{{ hostname }}"
+  notify: Save BIG-IP running configuration
 
 - name: Configure DNS
   f5networks.f5_modules.bigip_device_dns:
     provider: "{{ provider }}"
     name_servers: "{{ dns_servers }}"
+  notify: Save BIG-IP running configuration
 
 - name: Configure NTP
   f5networks.f5_modules.bigip_device_ntp:
     provider: "{{ provider }}"
     ntp_servers: "{{ ntp_servers }}"
+  notify: Save BIG-IP running configuration
