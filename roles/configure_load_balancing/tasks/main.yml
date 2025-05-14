@@ -1,10 +1,4 @@
 ---
 - name: Configure load balancing
   ansible.builtin.include_tasks: configure_lb.yml
-  register: lb_config_result
-
-- name: Save BIG-IP running configuration
-  f5networks.f5_modules.bigip_config:
-    provider: "{{ provider }}"
-    save: true
-  when: lb_config_result.changed
+  notify: Save BIG-IP running configuration

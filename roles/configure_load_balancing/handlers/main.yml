@@ -1,0 +1,5 @@
+---
+- name: Save BIG-IP running configuration
+  f5networks.f5_modules.bigip_config:
+    provider: "{{ provider }}"
+    save: true
