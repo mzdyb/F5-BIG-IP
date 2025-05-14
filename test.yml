@@ -1,0 +1,10 @@
+---
+- name: test
+  hosts: localhost
+  gather_facts: false
+  vars:
+    var1: false
+
+  tasks:
+  - debug: msg="{{ var1 }}"
+  - debug: msg="{{ not var1 }}"

@@ -1,5 +1,5 @@
 ---
-- debug: var=persistence_enabled
+- debug: msg="{{ persistence_enabled }}"
 
 - debug: msg="{{ not persistence_enabled }}"
 
